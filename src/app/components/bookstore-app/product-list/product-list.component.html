@@ -1,7 +1,32 @@
 <div class="row">
-<div class="col-wd-4" *ngFor="let livro of livros">
-<app-product-item [livro]="livro"></app-product-item>
-</div>
-
-
+    <div class="col-wd-4" *ngFor="let livro of livros">
+        <app-product-item [livro]="livro"></app-product-item>
+    </div>
+    <div>
+        <form [formGroup]="bookForm">
+            <p>Cadastro de novos livros:</p>
+            <div>
+                <label for="">Título do livro:</label>
+                <input formControlName="name" type="text">
+                <span *ngIf="!bookForm.get('name')?.valid && bookForm.get('name')?.touched">O campo "título" é obrigatório.</span>
+            </div>
+            <div>
+                <label for="">Autor:</label>
+                <input formControlName="author" type="text">
+            </div>
+            <div>
+                <label for="">Preço:</label>
+                <input formControlName="price" type="number">
+            </div>
+            <div>
+                <label for="">Quantidade:</label>
+                <input formControlName="quantity" type="number">
+            </div>
+            <div>
+                <label for="">Categoria:</label>
+                <input formControlName="category" type="text">
+            </div>
+        </form>
+        <button (click)="create()" [disabled]="!bookForm.valid">Salvar</button>
+    </div>
 </div>

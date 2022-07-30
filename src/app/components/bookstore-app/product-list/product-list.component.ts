@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BooksService } from './product-list.component.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { flatMap } from 'rxjs';
+import { Book } from './model/domain/Book';
+import { BooksService } from './model/service/book-service';
+
 
 @Component({
   selector: 'app-product-list',
@@ -8,20 +12,37 @@ import { BooksService } from './product-list.component.service';
 })
 export class ProductListComponent implements OnInit {
 
-  livros: any;
-  bookService: BooksService;
+  livros: Book[] = [];
+  bookForm!: FormGroup;
 
-  constructor(bookService: BooksService) {
-    this.bookService = bookService;
+
+  constructor(private bookService: BooksService, private formBuilder: FormBuilder) {
   }
 
 
   ngOnInit(): void {
+    this.fetchBooks();
+    this.bookForm = this.formBuilder.group({
+      "name": ["", Validators.required],
+      "author": ["", Validators.required],
+      "price": ["0", Validators.required],
+      "quantity": ["", Validators.required],
+      "category": ["", Validators.required]
+    })
 
-    this.livros = this.bookService.getBack().subscribe((data => {
+  }
+
+  create() {
+    console.log(this.bookForm.value);
+    this.bookService.createBook(this.bookForm.value).subscribe();
+    this.fetchBooks();
+    this.bookForm.reset();
+  }
+
+  fetchBooks() {
+    this.bookService.getBooks().subscribe((data => {
       this.livros = data;
       console.log(this.livros)
     }))
   }
-
 }
