@@ -11,6 +11,8 @@ import { Router } from '@angular/router';
 })
 export class BookFormComponent implements OnInit {
   bookForm!: FormGroup;
+  file!: File;
+
   constructor(private bookService: BooksService,
     private formBuilder: FormBuilder,
     private router: Router) {
@@ -21,19 +23,34 @@ export class BookFormComponent implements OnInit {
     this.bookForm = this.formBuilder.group({
       "name": ["", Validators.required],
       "author": ["", Validators.required],
-      "price": ["0", Validators.required],
+      "price": ["", Validators.required],
       "quantity": ["", Validators.required],
-      "category": ["", Validators.required]
+      "category": ["", Validators.required],
+      "img": ["", Validators.required],
+      "file": ["", Validators.required]
     })
   }
 
   create() {
     console.log(this.bookForm.value);
-    this.bookService.createBook(this.bookForm.value).subscribe();
+    let book = this.bookForm.value;
+    let fileReader = new FileReader();
+    fileReader.onload = (result) => {
+      let stringBase64 = btoa(fileReader.result as string);
+      book.img = stringBase64;
+      this.bookService.createBook(book).subscribe();
+    } 
+    fileReader.readAsBinaryString(this.bookForm.value.file);
     this.bookForm.reset();
   }
 
-  goToCadastro(){
+  goToCadastro() {
     this.router.navigate(['/cadastro']);
+  }
+
+  onFileChange(event: any) {
+    this.bookForm.patchValue({
+      "file": event.target.files[0]
+    })
   }
 }

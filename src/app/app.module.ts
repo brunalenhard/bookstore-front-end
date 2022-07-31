@@ -16,6 +16,8 @@ import { BookFormComponent } from './components/bookstore-app/book-form/book-for
 import { RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { routing } from './app-routing.module';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { routing } from './app-routing.module';
     HttpClientModule,
     ReactiveFormsModule,
     RouterModule,
-    routing
+    routing, 
+    NgxMaskModule.forRoot(),
   ],
   providers: [BooksService],
   bootstrap: [AppComponent]

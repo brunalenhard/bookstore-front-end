@@ -1,6 +1,8 @@
-
-.img-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.frase {
+    font-size: 2vw;
+    text-align: center;
+}
+.img-fluid {
+    width: 100%;
+    height: auto;
 }
