@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
@@ -13,6 +12,10 @@ import { ProductItemComponent } from './components/bookstore-app/product-list/pr
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { BooksService } from './components/bookstore-app/product-list/model/service/book-service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BookFormComponent } from './components/bookstore-app/book-form/book-form.component';
+import { RouterModule } from '@angular/router';
+import { HomeComponent } from './components/home/home.component';
+import { routing } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -23,13 +26,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     BookstoreAppComponent,
     FiltersComponent,
     ProductListComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    BookFormComponent,
+    HomeComponent,
 ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
+    routing
   ],
   providers: [BooksService],
   bootstrap: [AppComponent]

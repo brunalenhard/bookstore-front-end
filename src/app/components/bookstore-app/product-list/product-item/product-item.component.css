@@ -2,3 +2,13 @@
     width: 120px;
     height: 150px;
 }
+.card {
+    padding: 3rem;
+    display: flex;
+    flex-direction: row;
+}
+.card-body{
+display: flex;
+flex-direction: column;
+justify-content: center;
+}

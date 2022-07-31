@@ -13,30 +13,14 @@ import { BooksService } from './model/service/book-service';
 export class ProductListComponent implements OnInit {
 
   livros: Book[] = [];
-  bookForm!: FormGroup;
 
 
-  constructor(private bookService: BooksService, private formBuilder: FormBuilder) {
+  constructor(private bookService: BooksService) {
   }
 
 
   ngOnInit(): void {
     this.fetchBooks();
-    this.bookForm = this.formBuilder.group({
-      "name": ["", Validators.required],
-      "author": ["", Validators.required],
-      "price": ["0", Validators.required],
-      "quantity": ["", Validators.required],
-      "category": ["", Validators.required]
-    })
-
-  }
-
-  create() {
-    console.log(this.bookForm.value);
-    this.bookService.createBook(this.bookForm.value).subscribe();
-    this.fetchBooks();
-    this.bookForm.reset();
   }
 
   fetchBooks() {
